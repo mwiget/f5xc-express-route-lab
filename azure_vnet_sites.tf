@@ -31,6 +31,13 @@ module "azure-site-1" {
       auto                            = true
       manual                          = false
       labels                          = {}
+    },
+    {
+      resource_group                  = module.spoke_vnet_b.resource_group.resource_group.name
+      vnet_name                       = module.spoke_vnet_b.vnet.name
+      auto                            = true
+      manual                          = false
+      labels                          = {}
     }
   ]
   f5xc_azure_default_blocked_services = false
