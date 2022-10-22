@@ -46,6 +46,7 @@ module "azure-site-1" {
   f5xc_azure_no_worker_nodes          = true
   f5xc_azure_total_worker_nodes       = 0
   public_ssh_key                      = var.ssh_public_key
+  custom_tags                         = { "virtualSite" = "marcel-vsite" }
 }
 
 output "azure-site-1" {
