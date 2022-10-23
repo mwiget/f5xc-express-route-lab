@@ -1,3 +1,16 @@
+diff --git a/f5xc/site/aws/vpc/main.tf b/f5xc/site/aws/vpc/main.tf
+index f48a1f3..c84351b 100644
+--- a/f5xc/site/aws/vpc/main.tf
++++ b/f5xc/site/aws/vpc/main.tf
+@@ -18,7 +18,7 @@ resource "volterra_aws_vpc_site" "site" {
+       cloud_aggregated_prefix      = var.f5xc_aws_vpc_cloud_aggregated_prefix
+       dc_connect_aggregated_prefix = var.f5xc_aws_vpc_dc_connect_aggregated_prefix
+       manual_gw                    = var.f5xc_aws_vpc_direct_connect_manual_gw == true && var.f5xc_aws_vpc_direct_connect_hosted_vifs == false && var.f5xc_aws_vpc_direct_connect_standard_vifs == false ? true : null
+-      standard_vifs                = var.f5xc_aws_vpc_direct_connect_manual_gw == false && var.f5xc_aws_vpc_direct_connect_hosted_vifs == false && var.f5xc_aws_vpc_direct_connect_standard_vifs == true ? true : null
++      standard_vifs                = var.f5xc_aws_vpc_direct_connect_standard_vifs
+       dynamic "hosted_vifs" {
+         for_each = var.f5xc_aws_vpc_direct_connect_manual_gw == false && var.f5xc_aws_vpc_direct_connect_hosted_vifs != "" && var.f5xc_aws_vpc_direct_connect_standard_vifs == false ? [
+           1
 diff --git a/f5xc/site/azure/main.tf b/f5xc/site/azure/main.tf
 index c6928ae..7de0ff2 100644
 --- a/f5xc/site/azure/main.tf
