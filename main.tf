@@ -76,6 +76,15 @@ module "azure-site-1" {
       labels                          = {}
     }
   ]
+  f5xc_azure_express_route_connections = [
+    {
+      name                            = "solution-team"
+      description                     = "connection into SJC lab"
+      circuit_id                      = var.express_route_circuit_id
+      weight                          = 10
+    }
+  ]
+  f5xc_azure_express_route_sku_standard = true
   f5xc_azure_default_blocked_services = false
   f5xc_azure_default_ce_sw_version    = true
   f5xc_azure_default_ce_os_version    = true

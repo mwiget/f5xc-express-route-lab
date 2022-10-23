@@ -54,10 +54,17 @@ variable "f5xc_api_token" {
 }
 
 variable "f5xc_api_cert" {
+  type = string
   default = ""
 }
 
 variable "f5xc_tenant" {
+  type = string
+  default = ""
+}
+
+variable "express_route_circuit_id" {
+  type = string
   default = ""
 }
 
