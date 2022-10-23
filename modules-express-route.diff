@@ -1,3 +1,32 @@
+diff --git a/f5xc/site/aws/vpc/data.tf b/f5xc/site/aws/vpc/data.tf
+index b8433e7..a0fe593 100644
+--- a/f5xc/site/aws/vpc/data.tf
++++ b/f5xc/site/aws/vpc/data.tf
+@@ -20,4 +20,22 @@ data "aws_network_interface" "sli" {
+     name   = "tag:ves.io/interface-type"
+     values = ["site-local-inside"]
+   }
+-}
+\ No newline at end of file
++}
++
++data "aws_subnet" "workload" {
++  filter {
++    name   = "tag:ves-io-site-name"
++    values = [var.f5xc_aws_vpc_site_name]
++  }
++  filter {
++    name   = "tag:ves.io/subnet-type"
++    values = ["workload"]
++  }
++}
++
++data "aws_vpc" "vpc" {
++  filter {
++    name   = "tag:ves-io-site-name"
++    values = [var.f5xc_aws_vpc_site_name]
++  }
++}
 diff --git a/f5xc/site/aws/vpc/main.tf b/f5xc/site/aws/vpc/main.tf
 index f48a1f3..c84351b 100644
 --- a/f5xc/site/aws/vpc/main.tf
@@ -11,6 +40,36 @@ index f48a1f3..c84351b 100644
        dynamic "hosted_vifs" {
          for_each = var.f5xc_aws_vpc_direct_connect_manual_gw == false && var.f5xc_aws_vpc_direct_connect_hosted_vifs != "" && var.f5xc_aws_vpc_direct_connect_standard_vifs == false ? [
            1
+diff --git a/f5xc/site/aws/vpc/outputs.tf b/f5xc/site/aws/vpc/outputs.tf
+index e1468bf..097fc7c 100644
+--- a/f5xc/site/aws/vpc/outputs.tf
++++ b/f5xc/site/aws/vpc/outputs.tf
+@@ -1,12 +1,15 @@
+ output "f5xc_aws_vpc" {
+   value = {
+-    name          = volterra_aws_vpc_site.site.name
+-    id            = volterra_aws_vpc_site.site.id
+-    sli_ip        = data.aws_network_interface.sli.private_ip
+-    slo_ip        = data.aws_network_interface.slo.private_ip
+-    region        = volterra_aws_vpc_site.site.aws_region
+-    instance_type = volterra_aws_vpc_site.site.instance_type
+-    public_ip     = data.aws_network_interface.slo.association[0]["public_ip"]
+-    params        = volterra_tf_params_action.aws_vpc_action
++    name               = volterra_aws_vpc_site.site.name
++    id                 = volterra_aws_vpc_site.site.id
++    sli_ip             = data.aws_network_interface.sli.private_ip
++    slo_ip             = data.aws_network_interface.slo.private_ip
++    region             = volterra_aws_vpc_site.site.aws_region
++    instance_type      = volterra_aws_vpc_site.site.instance_type
++    public_ip          = data.aws_network_interface.slo.association[0]["public_ip"]
++    params             = volterra_tf_params_action.aws_vpc_action
++    vpc_id             = data.aws_vpc.vpc.id
++    workload_subnet_id = data.aws_subnet.workload.id
+   }
+-}
+\ No newline at end of file
++}
++
 diff --git a/f5xc/site/azure/main.tf b/f5xc/site/azure/main.tf
 index c6928ae..7de0ff2 100644
 --- a/f5xc/site/azure/main.tf
