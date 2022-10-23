@@ -91,7 +91,7 @@ module "azure-site-1" {
   f5xc_azure_no_worker_nodes          = true
   f5xc_azure_total_worker_nodes       = 0
   public_ssh_key                      = var.ssh_public_key
-  custom_tags                         = { "virtualSite" = "marcel-vsite" }
+  custom_labels                         = { "virtualSite" = "marcel-vsite" }
 }
 
 module "aws-site-1" {
@@ -124,7 +124,7 @@ module "aws-site-1" {
   f5xc_aws_vpc_direct_connect_standard_vifs = true
   f5xc_aws_vpc_direct_connect_custom_asn    = 65110
   public_ssh_key                            = var.ssh_public_key
-  custom_tags                               = { "virtualSite" = "marcel-vsite", "dummyTag" = "mydummy" }
+  f5xc_labels                               = { "virtualSite" = "marcel-vsite" }
 
   providers = {
     aws = aws.us-east-1
