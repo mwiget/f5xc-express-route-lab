@@ -1,8 +1,8 @@
 diff --git a/f5xc/site/aws/vpc/data.tf b/f5xc/site/aws/vpc/data.tf
-index b8433e7..a0fe593 100644
+index b8433e7..a811235 100644
 --- a/f5xc/site/aws/vpc/data.tf
 +++ b/f5xc/site/aws/vpc/data.tf
-@@ -20,4 +20,22 @@ data "aws_network_interface" "sli" {
+@@ -20,4 +20,24 @@ data "aws_network_interface" "sli" {
      name   = "tag:ves.io/interface-type"
      values = ["site-local-inside"]
    }
@@ -11,6 +11,7 @@ index b8433e7..a0fe593 100644
 +}
 +
 +data "aws_subnet" "workload" {
++  depends_on = [module.site_wait_for_online]
 +  filter {
 +    name   = "tag:ves-io-site-name"
 +    values = [var.f5xc_aws_vpc_site_name]
@@ -22,6 +23,7 @@ index b8433e7..a0fe593 100644
 +}
 +
 +data "aws_vpc" "vpc" {
++  depends_on = [module.site_wait_for_online]
 +  filter {
 +    name   = "tag:ves-io-site-name"
 +    values = [var.f5xc_aws_vpc_site_name]
