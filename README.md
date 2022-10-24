@@ -14,3 +14,14 @@
 +-------------+
 ```
 
+## Deploy
+
+Set TF_VAR env or create terraform.tfvars (or use both) based on variables.tf. Then accept
+the F5 XC Azure VM terms via shell script and deploy
+
+```
+./accept_azure_volterraedgeservices.sh
+terraform init
+terraform apply
+```
+
