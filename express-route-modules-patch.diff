@@ -1,0 +1,39 @@
+diff --git a/f5xc/site/azure/main.tf b/f5xc/site/azure/main.tf
+index 7de0ff2..6c92e2f 100644
+--- a/f5xc/site/azure/main.tf
++++ b/f5xc/site/azure/main.tf
+@@ -151,8 +151,16 @@ resource "volterra_azure_vnet_site" "site" {
+               sku_high_perf     = var.f5xc_azure_express_route_sku_high_perf
+               sku_ergw1az       = var.f5xc_azure_express_route_sku_ergw1az
+               sku_ergw2az       = var.f5xc_azure_express_route_sku_ergw2az
+-              // gateway_subnet TODO
+-              // route_server_subnet TODO
++              gateway_subnet {  # TODO auto
++                subnet_param {
++                  ipv4 = var.f5xc_azure_express_gateway_subnet
++                }
++              }
++              route_server_subnet { # TODO auto
++                subnet_param {
++                  ipv4 = var.f5xc_azure_express_route_server_subnet
++                }
++              }
+             }
+           }
+         }
+diff --git a/f5xc/site/azure/variables.tf b/f5xc/site/azure/variables.tf
+index 0db53a8..6f42b97 100644
+--- a/f5xc/site/azure/variables.tf
++++ b/f5xc/site/azure/variables.tf
+@@ -255,3 +255,11 @@ variable "custom_labels" {
+   type        = map(string)
+   default     = {}
+ }
++
++variable "f5xc_azure_express_route_server_subnet" {
++  type        = string
++}
++
++variable "f5xc_azure_express_gateway_subnet" {
++  type        = string
++}
