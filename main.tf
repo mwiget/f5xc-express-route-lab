@@ -85,15 +85,15 @@ module "azure-site-2" {
     }
   ]
   f5xc_azure_express_route_server_subnet = "10.101.10.0/24"
-  f5xc_azure_express_gateway_subnet = "10.101.11.0/24"
-  f5xc_azure_express_route_sku_standard = true
-  f5xc_azure_default_blocked_services = false
-  f5xc_azure_default_ce_sw_version    = true
-  f5xc_azure_default_ce_os_version    = true
-  f5xc_azure_no_worker_nodes          = true
-  f5xc_azure_total_worker_nodes       = 0
-  public_ssh_key                      = var.ssh_public_key
-  custom_labels                         = { "virtualSite" = "marcel-vsite" }
+  f5xc_azure_express_gateway_subnet      = "10.101.11.0/24"
+  f5xc_azure_express_route_sku_standard  = true
+  f5xc_azure_default_blocked_services    = false
+  f5xc_azure_default_ce_sw_version       = true
+  f5xc_azure_default_ce_os_version       = true
+  f5xc_azure_no_worker_nodes             = true
+  f5xc_azure_total_worker_nodes          = 0
+  public_ssh_key                         = var.ssh_public_key
+  custom_labels                          = { "virtualSite" = "marcel-vsite" }
 }
 
 output "azure-site-2" {
